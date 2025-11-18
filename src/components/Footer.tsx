@@ -28,9 +28,11 @@ const Footer = () => {
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 rounded-full gradient-gold flex items-center justify-center">
-                  <span className="text-primary font-bold">G</span>
-                </div>
+                <img 
+                  src="/GTAP LOGO.jpg" 
+                  alt="GTAP Logo" 
+                  className="w-8 h-8 rounded-full object-cover"
+                />
                 <span className="text-xl font-serif font-bold">GTAP</span>
               </div>
               <p className="text-sm text-muted-foreground">
@@ -63,7 +65,7 @@ const Footer = () => {
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>info@gtap-accreditation.org</li>
+                <li>globaltimespanel@gmail.com</li>
                 <li>8309159939</li>
                 <li className="pt-2">
                   <button 

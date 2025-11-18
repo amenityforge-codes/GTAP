@@ -57,7 +57,7 @@ const ContactSection = () => {
     e.preventDefault();
     
     // Validate admin credentials
-    const ADMIN_EMAIL = "amenityforge@gmail.com";
+    const ADMIN_EMAIL = "globaltimespanel@gmail.com";
     const ADMIN_PASSWORD = "Amenity";
     
     if (loginData.email.toLowerCase().trim() === ADMIN_EMAIL.toLowerCase() && 
@@ -114,7 +114,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Email Us</h3>
-                  <p className="text-sm text-muted-foreground">info@gtap-accreditation.org</p>
+                  <p className="text-sm text-muted-foreground">globaltimespanel@gmail.com</p>
                 </div>
               </Card>
 
@@ -242,7 +242,7 @@ const ContactSection = () => {
                   type="email"
                   value={loginData.email}
                   onChange={handleLoginChange}
-                  placeholder="admin@gtap-accreditation.org"
+                  placeholder="globaltimespanel@gmail.com"
                   required
                   className="pl-10 bg-background/50"
                 />

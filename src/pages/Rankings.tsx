@@ -573,14 +573,28 @@ const Rankings = () => {
   }, []);
 
   const filteredInstitutions = useMemo(() => {
-    return rankingData
+    const filtered = rankingData
       .filter((institution) => (institutionTypeFilter === "all" ? true : institution.institutionType === institutionTypeFilter))
       .filter((institution) => (cityFilter === "all" ? true : institution.city === cityFilter))
       .filter((institution) =>
         institution.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         institution.city.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-      .sort((a, b) => a.ranking - b.ranking);
+      );
+    
+    // Sort by national ranking (if available) or score, then limit to top 5
+    const sorted = filtered.sort((a, b) => {
+      // Prioritize national ranking if available, otherwise use score
+      if (a.nationalRanking && b.nationalRanking) {
+        return a.nationalRanking - b.nationalRanking;
+      }
+      if (a.score && b.score) {
+        return b.score - a.score; // Higher score = better
+      }
+      return a.ranking - b.ranking; // Fallback to city ranking
+    });
+    
+    // Limit to top 5 schools on this page
+    return sorted.slice(0, 5);
   }, [institutionTypeFilter, cityFilter, searchTerm]);
 
   // Export to CSV function
@@ -628,7 +642,7 @@ const Rankings = () => {
                 Leading GTAP Accredited Institutions <span className="text-gradient-gold">Across India</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Discover top-performing schools, colleges, universities, coaching institutes, and EdTech platforms by type, city, and accreditation level.
+                Discover top-performing schools across India. View the top 5 ranked institutions below, or click "View Full List" to see all {rankingData.length} schools.
               </p>
             </header>
 
@@ -702,7 +716,8 @@ const Rankings = () => {
                   </p>
                 </Card>
               ) : (
-                filteredInstitutions.map((institution) => (
+                <>
+                  {filteredInstitutions.map((institution) => (
                   <Card
                     key={institution.name}
                     className="p-6 md:p-8 shadow-premium border-border/40 bg-card/70 backdrop-blur transition-shadow hover:shadow-glow"
@@ -712,7 +727,7 @@ const Rankings = () => {
                         <div className="flex flex-wrap items-center gap-2">
                           <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold">
                             <Award className="h-4 w-4" />
-                            Rank #{institution.ranking}
+                            Rank #{institution.nationalRanking || institution.ranking}
                           </div>
                           <Badge variant="outline" className="border-blue-500/40 text-blue-600 text-xs">
                             {institution.institutionType}
@@ -742,7 +757,15 @@ const Rankings = () => {
                       ))}
                     </div>
                   </Card>
-                ))
+                  ))}
+                  {filteredInstitutions.length === 5 && (
+                    <Card className="p-6 text-center border-dashed border-border/60 bg-card/50 backdrop-blur">
+                      <p className="text-muted-foreground mb-4">
+                        Showing top 5 schools. View all {rankingData.length} schools in the full rankings.
+                      </p>
+                    </Card>
+                  )}
+                </>
               )}
             </div>
 
@@ -752,7 +775,7 @@ const Rankings = () => {
                 size="lg"
                 className="gradient-gold text-primary font-semibold px-8 hover:opacity-90 transition-opacity shadow-glow"
               >
-                View Full List
+                View Full List ({rankingData.length} Schools)
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

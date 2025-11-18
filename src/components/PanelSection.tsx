@@ -112,42 +112,29 @@ const PanelSection = () => {
       role: "Innovation Strategist",
       image: "/Umesh gupta.jpg",
       education: "Doctor of Philosophy (PhD), Machine Learning (Jan 2017 - Jul 2021)\nNational Institute of Technology Arunachal Pradesh\nMaster of Engineering (MEng), Computer Science (Jul 2011 - Sep 2013)\nNational Institute of Technical Teachers Training & Research, Chandigarh\nBachelor of Technology (BTech), Computer Science (2004 - 2008)\nAJAY KUMAR GARG ENGINEERING COLLEGE, GHAZIABAD"
-    },
-    { 
-      name: "Rajesh", 
-      role: "Technical Excellence Advisor",
-      image: "/Rajesh.jpg",
-      education: "JEE All India rank Top 500\nIIT Bombay\n12+ years of experience in the field of curriculum development and implementation\nAcademic Advisor of top most batch of Chaitanya"
-    },
-    { 
-      name: "Dr. Nitin Arvind Shelke", 
-      role: "Academic Advisor",
-      image: "/Nithin.jpg",
-      education: "Ph.D in Computer Science & Engineering\nTIET, Patiala\nM.Tech. in Computer Science & Engineering\nGovernment College of Engineering, Amravati\nB.E. in Computer Science & Engineering\nSant Gadge Baba Amravati University"
-    },
-    { name: "Mohammed Wasid",
-      role: "Technical Advisor",
-      image: "/Wasid.jpg",
-      education: "Doctor of Philosophy (PhD), Computer Engineering (2015 - 2021)\nAligarh Muslim University\nRecommender Systems, Machine learning, and Soft computing\nMaster of Technology (M.Tech.), Computer Science and Engineering (2013 - 2015)\nThe LNM Institute of Information Technology\nBachelor of Technology (B.Tech.), Computer Science and Engineering (2008 - 2012)\nRajasthan Technical University, Kota"
-    },
+    }
   ];
 
   const innovationCouncil = [
     {
       name: "Dr. Karnika Dwivedi",
-      image: "/Council-1-Karnika Dwivedi.jpg"
+      image: "/Council-1-Karnika Dwivedi.jpg",
+      education: "Ph.D. in Artificial Intelligence,Researcher - 15 Publications"
     },
     {
       name: "Dr. Uphar Singh",
-      image: "/Council-4-Dr. Uphar Singh.jpg"
+      image: "/Council-4-Dr. Uphar Singh.jpg",
+      education: "Ph.D, M.Tech Data Science, Reasearcher - 7 Publications"
     },
     {
       name: "Dr. Sidharth Quamara",
-      image: "/Council-2-Dr. Sidharth Quamara.jpg"
+      image: "/Council-2-Dr. Sidharth Quamara.jpg",
+      education: "Ph.D. in Blockchain(NIT),MHRD fellowship"
     },
     {
       name: "Dr. Amit Soni",
-      image: "/Council-3-Dr. Amit Soni.jpg"
+      image: "/Council-3-Dr. Amit Soni.jpg",
+      education: "Ph.D. in Artificial Intelligence(IIT),M.Tech,Researcher - 3 Publication"
     }
     
   ];
@@ -155,19 +142,23 @@ const PanelSection = () => {
   const mentors = [
     {
       name: "Dr. Ankith Kumar Pandey",
-      image: "/Mentor-1-Dr. Ankith Kumar Pandey.jpg"
+      image: "/Mentor-1-Dr. Ankith Kumar Pandey.jpg",
+      education: "World's Top 2% Scientists ~Stanford University"
     },
     {
       name: "Dr. Avinash Upadhyay",
-      image: "/Mentor-2-Dr. Avinash Upadhyay.jpg"
+      image: "/Mentor-2-Dr. Avinash Upadhyay.jpg",
+      education: "Ph.D. in Bennet, M.S at (KU)"
     },
     {
       name: "Dr. Manoj Sharma",
-      image: "/Mentor-3-Manoj Sharma.jpg"
+      image: "/Mentor-3-Manoj Sharma.jpg",
+      education: "Ph.D. in Computer Science (Professor)"
     },
     {
       name: "Dr. Vivek Kumar",
-      image: "/Mentor-4-Vivek kUMAR.jpg"
+      image: "/Mentor-4-Vivek kUMAR.jpg",
+      education: "Ph.D. in High Performance Computing (APJTU)"
     }
   ];
 
@@ -295,7 +286,12 @@ const PanelSection = () => {
                       }}
                     />
                   </div>
-                  <p className="text-sm font-semibold text-gold text-center">{member.name}</p>
+                  <div className="text-center space-y-1">
+                    <p className="text-sm font-semibold text-gold">{member.name}</p>
+                    {member.education && (
+                      <p className="text-xs text-muted-foreground">{member.education}</p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -323,7 +319,12 @@ const PanelSection = () => {
                       }}
                     />
                   </div>
-                  <p className="text-sm font-semibold text-gold text-center">{member.name}</p>
+                  <div className="text-center space-y-1">
+                    <p className="text-sm font-semibold text-gold">{member.name}</p>
+                    {member.education && (
+                      <p className="text-xs text-muted-foreground">{member.education}</p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

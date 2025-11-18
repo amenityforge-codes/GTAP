@@ -54,9 +54,11 @@ const Navigation = () => {
             onClick={() => handleNavigate("/")}
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-full gradient-gold flex items-center justify-center">
-              <span className="text-primary font-bold text-xl">G</span>
-            </div>
+            <img 
+              src="/GTAP LOGO.jpg" 
+              alt="GTAP Logo" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
             <span className="text-2xl font-serif font-bold">GTAP</span>
           </button>
 
