@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 30% 96%;
+    --foreground: 222 47% 11%;
+
+    --card: 220 25% 98%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 220 60% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 75% 55%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 220 60% 95%;
+    --accent-foreground: 220 60% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 60% 20%;
+
+    --radius: 0.75rem;
+
+    /* GTAP Custom Design Tokens */
+    --navy-deep: 220 60% 20%;
+    --navy-medium: 220 50% 35%;
+    --navy-light: 220 40% 50%;
+    --platinum: 220 20% 92%;
+    --gold: 40 75% 55%;
+    --gold-light: 40 90% 70%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(220 60% 20%) 0%, hsl(220 50% 35%) 50%, hsl(220 40% 50%) 100%);
+    --gradient-premium: linear-gradient(180deg, hsl(220 25% 94%) 0%, hsl(220 30% 96%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(40 75% 55%) 0%, hsl(40 90% 70%) 100%);
+    
+    --shadow-glow: 0 0 40px hsl(40 75% 55% / 0.3);
+    --shadow-premium: 0 20px 60px -15px hsl(220 60% 20% / 0.3);
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 60% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 60% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 60% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 220 60% 20%;
+
+    --secondary: 40 75% 55%;
+    --secondary-foreground: 220 60% 8%;
+
+    --muted: 220 50% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 220 50% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 50% 15%;
+    --input: 220 50% 15%;
+    --ring: 0 0% 98%;
+    
+    --sidebar-background: 240 6% 10%;
+    --sidebar-foreground: 240 5% 96%;
+    --sidebar-primary: 224 76% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 4% 16%;
+    --sidebar-accent-foreground: 240 5% 96%;
+    --sidebar-border: 240 4% 16%;
+    --sidebar-ring: 217 91% 60%;
+    
+    --navy-deep: 220 60% 25%;
+    --navy-medium: 220 50% 40%;
+    --navy-light: 220 40% 55%;
+    --platinum: 220 60% 10%;
+    --gold: 40 75% 55%;
+    --gold-light: 40 90% 70%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(220 60% 8%) 0%, hsl(220 50% 15%) 50%, hsl(220 40% 20%) 100%);
+    --gradient-premium: linear-gradient(180deg, hsl(220 60% 8%) 0%, hsl(220 55% 12%) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-premium {
+    background: var(--gradient-premium);
+  }
+  
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+  
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-premium {
+    box-shadow: var(--shadow-premium);
+  }
+  
+  .halo-ring {
+    position: relative;
+  }
+  
+  .halo-ring::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: var(--gradient-gold);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6;
+  }
+}
