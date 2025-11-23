@@ -54,11 +54,23 @@ const Navigation = () => {
             onClick={() => handleNavigate("/")}
             className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
           >
-            <img 
-              src="/GTAP LOGO.png" 
-              alt="GTAP Logo" 
-              className="h-16 w-16 rounded-full object-cover"
-            />
+            <div 
+              className="rounded-full overflow-hidden flex-shrink-0"
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+              }}
+            >
+              <img 
+                src="/GTAP LOGO.svg" 
+                alt="GTAP Logo" 
+                className="h-full w-full object-cover"
+                width="64"
+                height="64"
+                loading="eager"
+              />
+            </div>
           </button>
 
           {/* Desktop Navigation */}

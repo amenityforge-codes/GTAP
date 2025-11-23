@@ -14,6 +14,7 @@ import { Mail, MapPin, Phone, Lock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import emailjs from "@emailjs/browser";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -24,19 +25,78 @@ const ContactSection = () => {
     organization: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting GTAP. We'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", organization: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const recipientEmail = "globaltimespanel@gmail.com";
+      
+      // Try EmailJS first if configured
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (serviceId && templateId && publicKey) {
+        // Use EmailJS to send email
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            organization: formData.organization,
+            message: formData.message,
+            to_email: recipientEmail,
+            reply_to: formData.email,
+          },
+          publicKey
+        );
+      } else {
+        // Use FormSubmit (works immediately, no API key needed)
+        // Sends email directly to the specified address
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("organization", formData.organization);
+        formDataToSend.append("message", formData.message);
+        formDataToSend.append("_to", recipientEmail);
+        formDataToSend.append("_subject", `Contact Form Submission from ${formData.name}`);
+        formDataToSend.append("_replyto", formData.email);
+        formDataToSend.append("_captcha", "false");
+
+        const response = await fetch("https://formsubmit.co/ajax/" + recipientEmail, {
+          method: "POST",
+          body: formDataToSend,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to send message");
+        }
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for contacting GTAP. We'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", organization: "", message: "" });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or contact us directly at globaltimespanel@gmail.com",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -212,9 +272,10 @@ const ContactSection = () => {
                 <Button 
                   type="submit"
                   size="lg"
-                  className="w-full gradient-gold text-primary font-semibold hover:opacity-90 transition-opacity"
+                  disabled={isSubmitting}
+                  className="w-full gradient-gold text-primary font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Card>

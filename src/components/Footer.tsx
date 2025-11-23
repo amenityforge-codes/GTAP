@@ -28,11 +28,23 @@ const Footer = () => {
             {/* Brand */}
             <div className="space-y-4">
               <div className="flex items-center">
-                <img 
-                  src="/GTAP LOGO.png" 
-                  alt="GTAP Logo" 
-                  className="h-16 w-16 rounded-full object-cover"
-                />
+                <div 
+                  className="rounded-full overflow-hidden flex-shrink-0"
+                  style={{
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '50%',
+                  }}
+                >
+                  <img 
+                    src="/GTAP LOGO.svg" 
+                    alt="GTAP Logo" 
+                    className="h-full w-full object-cover"
+                    width="64"
+                    height="64"
+                    loading="eager"
+                  />
+                </div>
               </div>
               <p className="text-sm text-muted-foreground">
                 Accrediting Excellence. Inspiring Innovation.

@@ -181,4 +181,15 @@ All colors MUST be HSL.
     mask-composite: exclude;
     opacity: 0.6;
   }
+  
+  .logo-sharp {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: auto;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
 }
