@@ -165,7 +165,7 @@ const PanelSection = () => {
   const stats = [
     {
       icon: Users,
-      number: "35+",
+      number: "100+",
       label: "IITians",
       description: "From India's Premier Technology Institutes"
     },
