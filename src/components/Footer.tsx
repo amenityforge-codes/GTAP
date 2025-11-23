@@ -27,13 +27,12 @@ const Footer = () => {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             {/* Brand */}
             <div className="space-y-4">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center">
                 <img 
-                  src="/GTAP LOGO.jpg" 
+                  src="/GTAP LOGO.png" 
                   alt="GTAP Logo" 
-                  className="w-8 h-8 rounded-full object-cover"
+                  className="h-16 w-16 rounded-full object-cover"
                 />
-                <span className="text-xl font-serif font-bold">GTAP</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Accrediting Excellence. Inspiring Innovation.
