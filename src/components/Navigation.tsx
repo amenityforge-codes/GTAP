@@ -52,25 +52,26 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           <button 
             onClick={() => handleNavigate("/")}
-            className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
+            className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer"
           >
             <div 
               className="rounded-full overflow-hidden flex-shrink-0"
               style={{
-                width: '64px',
-                height: '64px',
+                width: '48px',
+                height: '48px',
                 borderRadius: '50%',
               }}
             >
               <img 
-                src="/GTAP LOGO.svg" 
+                src="/2.jpg" 
                 alt="GTAP Logo" 
                 className="h-full w-full object-cover"
-                width="64"
-                height="64"
+                width="48"
+                height="48"
                 loading="eager"
               />
             </div>
+            <span className="text-2xl font-serif font-bold">GTAP</span>
           </button>
 
           {/* Desktop Navigation */}

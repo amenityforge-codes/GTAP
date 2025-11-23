@@ -11,7 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Mail, MapPin, Phone, Lock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import emailjs from "@emailjs/browser";
@@ -19,6 +19,14 @@ import emailjs from "@emailjs/browser";
 const ContactSection = () => {
   const { toast } = useToast();
   const { login } = useAuth();
+  
+  // Initialize EmailJS if public key is available
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -60,8 +68,7 @@ const ContactSection = () => {
           publicKey
         );
       } else {
-        // Use FormSubmit (works immediately, no API key needed)
-        // Sends email directly to the specified address
+        // Use FormSubmit - works immediately, sends directly to email
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
@@ -71,14 +78,17 @@ const ContactSection = () => {
         formDataToSend.append("_subject", `Contact Form Submission from ${formData.name}`);
         formDataToSend.append("_replyto", formData.email);
         formDataToSend.append("_captcha", "false");
+        formDataToSend.append("_template", "table");
 
-        const response = await fetch("https://formsubmit.co/ajax/" + recipientEmail, {
+        const response = await fetch("https://formsubmit.co/ajax/" + encodeURIComponent(recipientEmail), {
           method: "POST",
           body: formDataToSend,
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to send message");
+        const result = await response.json();
+        
+        if (!response.ok || result.success === false) {
+          throw new Error(result.message || "Failed to send message");
         }
       }
 
@@ -87,11 +97,11 @@ const ContactSection = () => {
         description: "Thank you for contacting GTAP. We'll get back to you soon.",
       });
       setFormData({ name: "", email: "", organization: "", message: "" });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending email:", error);
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again or contact us directly at globaltimespanel@gmail.com",
+        description: error.message || "Failed to send message. Please try again or contact us directly at globaltimespanel@gmail.com",
         variant: "destructive",
       });
     } finally {

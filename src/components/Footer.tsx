@@ -27,24 +27,25 @@ const Footer = () => {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             {/* Brand */}
             <div className="space-y-4">
-              <div className="flex items-center">
+              <div className="flex items-center space-x-3">
                 <div 
                   className="rounded-full overflow-hidden flex-shrink-0"
                   style={{
-                    width: '64px',
-                    height: '64px',
+                    width: '48px',
+                    height: '48px',
                     borderRadius: '50%',
                   }}
                 >
                   <img 
-                    src="/GTAP LOGO.svg" 
+                    src="/2.jpg" 
                     alt="GTAP Logo" 
                     className="h-full w-full object-cover"
-                    width="64"
-                    height="64"
+                    width="48"
+                    height="48"
                     loading="eager"
                   />
                 </div>
+                <span className="text-xl font-serif font-bold">GTAP</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Accrediting Excellence. Inspiring Innovation.
