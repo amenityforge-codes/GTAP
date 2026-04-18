@@ -1,3 +1,4 @@
+import { SeoHead } from "@/components/SeoHead";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -103,6 +104,11 @@ const Certificates = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <SeoHead
+        title="Certificate Verification | GTAP - Global T.I.M.E.S Accreditation Panel"
+        description="Verify GTAP accreditation certificates by institution, academic year, and verification code. Supports CBSE, ICSE, IB, IGCSE, state boards, and more."
+        path="/certificates"
+      />
       <Navigation />
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 lg:px-8">

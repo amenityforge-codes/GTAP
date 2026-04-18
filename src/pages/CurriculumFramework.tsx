@@ -1,3 +1,4 @@
+import { SeoHead } from "@/components/SeoHead";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -90,6 +91,11 @@ const curriculumTracks = [
 const CurriculumFramework = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <SeoHead
+        title="International Curriculum Framework | GTAP (India + Global)"
+        description="GTAP international school curriculum: foundational years, STEM, AI and digital literacy, languages, wellbeing, and career pathways for nursery through grade 12."
+        path="/international-curriculum"
+      />
       <Navigation />
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 lg:px-8">

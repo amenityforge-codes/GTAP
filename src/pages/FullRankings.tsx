@@ -1,3 +1,4 @@
+import { SeoHead } from "@/components/SeoHead";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -791,6 +792,11 @@ const FullRankings = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <SeoHead
+        title="Full GTAP Rankings | All Accredited Schools & Institutions"
+        description="Complete list of GTAP-accredited institutions across India with rankings, tiers, boards, and locations. Filter and explore every accredited school in the directory."
+        path="/full-rankings"
+      />
       <Navigation />
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 lg:px-8">

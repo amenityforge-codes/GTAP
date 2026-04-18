@@ -1,3 +1,4 @@
+import { SeoHead } from "@/components/SeoHead";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -630,6 +631,11 @@ const Rankings = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <SeoHead
+        title="GTAP School Rankings India | Leading Accredited Institutions"
+        description="Explore top GTAP-accredited schools and institutions across India. Diamond, Platinum, Gold, Silver, and Emerging tiers—schools, colleges, universities, and EdTech."
+        path="/rankings"
+      />
       <Navigation />
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 lg:px-8">

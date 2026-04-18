@@ -1,3 +1,5 @@
+import { SeoHead } from "@/components/SeoHead";
+import { SITE_NAME } from "@/config/site";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -29,6 +31,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SeoHead
+        title={`${SITE_NAME} | Accrediting Excellence, Inspiring Innovation`}
+        description="GTAP (Global T.I.M.E.S Accreditation Panel) is a global movement for school and institutional accreditation, international curriculum, India rankings, and certificate verification—bridging innovation with world-class academic standards."
+        path="/"
+      />
       <Navigation />
       <main>
         <HeroSection />
