@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://globaltimespanel.com/sitemap.xml
+Sitemap: https://www.globaltimespanel.com/sitemap.xml
