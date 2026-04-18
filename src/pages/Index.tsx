@@ -31,8 +31,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <SeoHead
-        title="GTAP | Global T.I.M.E.S Accreditation Panel — Official Site"
-        description="GTAP — the Global T.I.M.E.S Accreditation Panel. Official GTAP site for accreditation, school and college rankings, certificate verification, and international curriculum. India rankings, CBSE ICSE IB IGCSE, STEM and AI standards."
+        title="Global T.I.M.E.S Accreditation Panel (GTAP) | Education & School Accreditation"
+        description="Global T.I.M.E.S Accreditation Panel (GTAP): education accreditation for schools and colleges, India rankings, certificate verification, and international curriculum — not economics or trade models."
         path="/"
       />
       <Navigation />
