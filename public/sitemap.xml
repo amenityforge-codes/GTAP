@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://globaltimespanel.org/</loc>
+    <loc>https://globaltimespanel.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://globaltimespanel.org/certificates</loc>
+    <loc>https://globaltimespanel.com/certificates</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://globaltimespanel.org/rankings</loc>
+    <loc>https://globaltimespanel.com/rankings</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://globaltimespanel.org/full-rankings</loc>
+    <loc>https://globaltimespanel.com/full-rankings</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://globaltimespanel.org/international-curriculum</loc>
+    <loc>https://globaltimespanel.com/international-curriculum</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
