@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-0">
         <img 
           src={heroBg} 
-          alt="Global Network" 
+          alt="GTAP — Global T.I.M.E.S Accreditation Panel, worldwide education network" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/90 via-navy-deep/70 to-background"></div>
@@ -32,12 +32,13 @@ const HeroSection = () => {
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
           <div className="inline-block px-6 py-2 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
-            <span className="text-gold text-sm font-semibold tracking-wide">Global T.I.M.E.S Accreditation Panel</span>
+            <span className="text-gold text-sm font-semibold tracking-wide">GTAP · Global T.I.M.E.S Accreditation Panel</span>
           
           </div>
           
           
           <h1 className="text-5xl md:text-7xl font-serif font-bold text-primary-foreground leading-tight">
+            <span className="block text-3xl md:text-4xl font-semibold tracking-tight text-gold mb-3 md:mb-4">GTAP</span>
             Accrediting Excellence.
             <br />
             <span className="text-gradient-gold">Inspiring Innovation.</span>
