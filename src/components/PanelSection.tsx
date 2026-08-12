@@ -200,7 +200,7 @@ const PanelSection = () => {
                       {leader.role}
                     </span>
                     <p className="text-lg md:text-xl text-muted-foreground italic max-w-xl">
-                      Our inspiration — in building GTAP with vision, purpose, and unwavering commitment to educational excellence.
+                      Our inspiration in building GTAP with vision, purpose, and unwavering commitment to educational excellence.
                     </p>
                   </div>
                 </div>
