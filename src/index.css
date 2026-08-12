@@ -127,6 +127,11 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Scale UI so previous 75% browser zoom becomes the default 100% */
+  html {
+    font-size: 75%;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;

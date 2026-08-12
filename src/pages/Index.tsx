@@ -32,7 +32,7 @@ const Index = () => {
     <div className="min-h-screen">
       <SeoHead
         title="Global T.I.M.E.S Accreditation Panel (GTAP) | Education & School Accreditation"
-        description="Global T.I.M.E.S Accreditation Panel (GTAP): education accreditation for schools and colleges, India rankings, certificate verification, and international curriculum — not economics or trade models."
+        description="Global T.I.M.E.S Accreditation Panel (GTAP): education accreditation for schools, India rankings, and certificate verification — not economics or trade models."
         path="/"
       />
       <Navigation />

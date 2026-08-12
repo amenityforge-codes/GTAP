@@ -241,7 +241,7 @@ const ContactSection = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@university.edu"
+                      placeholder="john@school.edu"
                       required
                       className="bg-background/50"
                     />
@@ -250,14 +250,14 @@ const ContactSection = () => {
 
                 <div className="space-y-2">
                   <label htmlFor="organization" className="text-sm font-medium">
-                    Organization / Institution
+                    Organization / School
                   </label>
                   <Input
                     id="organization"
                     name="organization"
                     value={formData.organization}
                     onChange={handleChange}
-                    placeholder="Your University or Organization"
+                    placeholder="Your School Name"
                     required
                     className="bg-background/50"
                   />

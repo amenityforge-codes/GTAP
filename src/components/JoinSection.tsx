@@ -25,7 +25,7 @@ const JoinSection = () => {
               Become Part of <span className="text-gradient-gold">GTAP</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Join leading universities and educators committed to excellence, innovation, and global collaboration
+              Join leading schools and educators committed to excellence, innovation, and global collaboration
             </p>
           </div>
 
@@ -49,7 +49,7 @@ const JoinSection = () => {
             <div className="pt-6 border-t border-border/50">
               <div className="text-center space-y-6">
                 <p className="text-lg text-muted-foreground">
-                  Ready to elevate your institution's standards and join a global network of excellence?
+                  Ready to elevate your school's standards and join a global network of excellence?
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 

@@ -32,7 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-type InstitutionType = "School" | "College" | "University" | "Coaching Institute" | "EdTech Platform";
+type InstitutionType = "School";
 
 type InstitutionRanking = {
   name: string;
@@ -645,7 +645,6 @@ const rankingData = generateRankingData();
 const FullRankings = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const [institutionTypeFilter, setInstitutionTypeFilter] = useState<string>("School");
   const [stateFilter, setStateFilter] = useState<string>("all");
   const [cityFilter, setCityFilter] = useState<string>("all");
   const [levelFilter, setLevelFilter] = useState<string>("all");
@@ -662,7 +661,6 @@ const FullRankings = () => {
       new Set(
         rankingData
           .filter((institution) => 
-            (institutionTypeFilter === "all" || institution.institutionType === institutionTypeFilter) &&
             institution.country === "India" &&
             institution.state
           )
@@ -671,14 +669,13 @@ const FullRankings = () => {
     );
     states.sort((a, b) => a.localeCompare(b));
     return states;
-  }, [institutionTypeFilter]);
+  }, []);
 
   const uniqueCities = useMemo(() => {
     const cities = Array.from(
       new Set(
         rankingData
           .filter((institution) => 
-            (institutionTypeFilter === "all" || institution.institutionType === institutionTypeFilter) &&
             (stateFilter === "all" || institution.state === stateFilter)
           )
           .map((institution) => institution.city)
@@ -686,11 +683,10 @@ const FullRankings = () => {
     );
     cities.sort((a, b) => a.localeCompare(b));
     return cities;
-  }, [institutionTypeFilter, stateFilter]);
+  }, [stateFilter]);
 
   const filteredInstitutions = useMemo(() => {
     let filtered = rankingData
-      .filter((institution) => (institutionTypeFilter === "all" ? true : institution.institutionType === institutionTypeFilter))
       .filter((institution) => (stateFilter === "all" ? true : institution.state === stateFilter))
       .filter((institution) => (cityFilter === "all" ? true : institution.city === cityFilter))
       .filter((institution) => (levelFilter === "all" ? true : institution.accreditationLevel === levelFilter))
@@ -709,12 +705,12 @@ const FullRankings = () => {
     }
 
     return filtered;
-  }, [institutionTypeFilter, stateFilter, cityFilter, levelFilter, searchTerm, sortBy]);
+  }, [stateFilter, cityFilter, levelFilter, searchTerm, sortBy]);
 
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [institutionTypeFilter, stateFilter, cityFilter, levelFilter, searchTerm, sortBy]);
+  }, [stateFilter, cityFilter, levelFilter, searchTerm, sortBy]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredInstitutions.length / itemsPerPage);
@@ -749,10 +745,7 @@ const FullRankings = () => {
   // Export to CSV function
   const exportToCSV = () => {
     const headers = [
-      "National Rank",
-      "State Rank",
       "School Name",
-      "Type",
       "City",
       "State",
       "Country",
@@ -764,10 +757,7 @@ const FullRankings = () => {
     
     filteredInstitutions.forEach((institution) => {
       const row = [
-        institution.nationalRanking || "",
-        institution.stateRanking || "",
         `"${institution.name}"`,
-        institution.institutionType,
         institution.city,
         institution.state || "",
         institution.country,
@@ -783,7 +773,7 @@ const FullRankings = () => {
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", `school-rankings-full-${new Date().toISOString().split("T")[0]}.csv`);
+    link.setAttribute("download", `gtap-accredited-schools-full-${new Date().toISOString().split("T")[0]}.csv`);
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
@@ -793,8 +783,8 @@ const FullRankings = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <SeoHead
-        title="Full GTAP Rankings | All Accredited Schools & Institutions"
-        description="Complete list of GTAP-accredited institutions across India with rankings, tiers, boards, and locations. Filter and explore every accredited school in the directory."
+        title="Full GTAP Directory | All Accredited Schools"
+        description="Complete list of GTAP-accredited schools across India with accreditation levels, scores, boards, and locations."
         path="/full-rankings"
       />
       <Navigation />
@@ -810,17 +800,17 @@ const FullRankings = () => {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Rankings
+                  Back to Schools
                 </Button>
               </div>
               <Badge className="px-5 py-2 text-[0.65rem] uppercase tracking-[0.35em] bg-gold/10 text-gold border border-gold/40">
-                Complete Rankings Database
+                Complete School Directory
               </Badge>
               <h1 className="text-4xl md:text-5xl font-serif font-bold">
-                National <span className="text-gradient-gold">Institution Rankings</span>
+                GTAP Accredited <span className="text-gradient-gold">Schools</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Comprehensive rankings of GTAP-accredited schools across India. Filter by type, city, accreditation level, or search by name.
+                Browse GTAP-accredited schools across India. Filter by state, city, accreditation level, or search by name.
               </p>
               <div className="flex items-center justify-center gap-6 pt-4">
                 <div className="flex items-center gap-2 text-sm">
@@ -829,7 +819,7 @@ const FullRankings = () => {
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <TrendingUp className="h-4 w-4 text-gold" />
-                  <span className="text-muted-foreground">National Rankings</span>
+                  <span className="text-muted-foreground">Accreditation Directory</span>
                 </div>
               </div>
             </header>
@@ -872,27 +862,6 @@ const FullRankings = () => {
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Filter by Type</label>
-                  <Select value={institutionTypeFilter} onValueChange={(value) => {
-                    setInstitutionTypeFilter(value);
-                    setStateFilter("all");
-                    setCityFilter("all");
-                  }}>
-                    <SelectTrigger className="bg-background/60">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="School">Schools</SelectItem>
-                      <SelectItem value="College">Colleges</SelectItem>
-                      <SelectItem value="University">Universities</SelectItem>
-                      <SelectItem value="Coaching Institute">Coaching Institutes</SelectItem>
-                      <SelectItem value="EdTech Platform">EdTech Platforms</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground">Filter by State</label>
                   <Select value={stateFilter} onValueChange={(value) => {
                     setStateFilter(value);
@@ -914,7 +883,7 @@ const FullRankings = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground">Filter by City</label>
-                  <Select value={cityFilter} onValueChange={setCityFilter} disabled={institutionTypeFilter === "all" && uniqueCities.length > 50}>
+                  <Select value={cityFilter} onValueChange={setCityFilter} disabled={uniqueCities.length > 50 && stateFilter === "all"}>
                     <SelectTrigger className="bg-background/60">
                       <SelectValue placeholder="Select city" />
                     </SelectTrigger>
@@ -962,7 +931,7 @@ const FullRankings = () => {
 
               <div className="space-y-2">
                 <label htmlFor="search" className="text-sm font-medium text-muted-foreground">
-                  Search Institution, City, or Country
+                  Search School, City, or Country
                 </label>
                 <Input
                   id="search"
@@ -975,7 +944,7 @@ const FullRankings = () => {
 
               <div className="flex items-center justify-between pt-2">
                 <p className="text-sm text-muted-foreground">
-                  Showing <span className="font-semibold text-foreground">{filteredInstitutions.length}</span> of {rankingData.length} institutions
+                  Showing <span className="font-semibold text-foreground">{filteredInstitutions.length}</span> of {rankingData.length} schools
                 </p>
                 {filteredInstitutions.length > itemsPerPage && (
                   <p className="text-sm text-muted-foreground">
@@ -989,7 +958,7 @@ const FullRankings = () => {
               {filteredInstitutions.length === 0 ? (
                 <div className="p-10 text-center">
                   <p className="text-muted-foreground">
-                    No institutions found for the selected filters. Try adjusting your search criteria.
+                    No schools found for the selected filters. Try adjusting your search criteria.
                   </p>
                 </div>
               ) : (
@@ -997,10 +966,7 @@ const FullRankings = () => {
                   <Table>
                     <TableHeader>
                       <TableRow className="hover:bg-transparent border-b border-border/50">
-                        <TableHead className="w-[80px] font-semibold text-foreground">National Rank</TableHead>
-                        <TableHead className="w-[80px] font-semibold text-foreground">State Rank</TableHead>
-                        <TableHead className="font-semibold text-foreground">Institution Name</TableHead>
-                        <TableHead className="w-[120px] font-semibold text-foreground">Type</TableHead>
+                        <TableHead className="font-semibold text-foreground">School Name</TableHead>
                         <TableHead className="w-[120px] font-semibold text-foreground">City</TableHead>
                         <TableHead className="w-[120px] font-semibold text-foreground">State</TableHead>
                         <TableHead className="w-[120px] font-semibold text-foreground">Country</TableHead>
@@ -1012,34 +978,11 @@ const FullRankings = () => {
                     <TableBody>
                       {paginatedInstitutions.map((institution) => (
                         <TableRow
-                          key={`${institution.name}-${institution.nationalRanking}`}
+                          key={`${institution.name}-${institution.score}-${institution.city}`}
                           className="hover:bg-muted/30 border-b border-border/30"
                         >
                           <TableCell>
-                            {institution.country === "India" ? (
-                              <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-2.5 py-1 text-xs font-semibold text-blue-500">
-                                #{institution.nationalRanking}
-                              </div>
-                            ) : (
-                              <span className="text-xs text-muted-foreground">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {institution.stateRanking ? (
-                              <div className="inline-flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-2.5 py-1 text-xs font-semibold text-green-600">
-                                #{institution.stateRanking}
-                              </div>
-                            ) : (
-                              <span className="text-xs text-muted-foreground">—</span>
-                            )}
-                          </TableCell>
-                          <TableCell>
                             <span className="font-medium text-foreground">{institution.name}</span>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline" className="border-blue-500/40 text-blue-600 text-xs">
-                              {institution.institutionType}
-                            </Badge>
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -1134,7 +1077,7 @@ const FullRankings = () => {
                     </Button>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Showing {startIndex + 1}-{Math.min(endIndex, filteredInstitutions.length)} of {filteredInstitutions.length} institutions
+                    Showing {startIndex + 1}-{Math.min(endIndex, filteredInstitutions.length)} of {filteredInstitutions.length} schools
                   </p>
                 </div>
               )}
@@ -1165,7 +1108,7 @@ const FullRankings = () => {
       }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-serif">Import School Rankings</DialogTitle>
+            <DialogTitle className="text-2xl font-serif">Import School Directory</DialogTitle>
             <DialogDescription>
               Select a {importType?.toUpperCase()} file to import school ranking data
             </DialogDescription>

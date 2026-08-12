@@ -10,10 +10,8 @@ import { Award, MapPin, ArrowRight, Download } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type InstitutionType = "School" | "College" | "University" | "Coaching Institute" | "EdTech Platform";
+type InstitutionType = "School";
 type SchoolBoard = "CBSE" | "ICSE" | "IB" | "IGCSE" | "State Board";
-type CollegeType = "Engineering" | "Medical" | "MBA";
-type CoachingType = "JEE" | "NEET" | "UPSC";
 
 type InstitutionRanking = {
   name: string;
@@ -21,7 +19,7 @@ type InstitutionRanking = {
   country: string;
   ranking: number;
   institutionType: InstitutionType;
-  subType?: SchoolBoard | CollegeType | CoachingType;
+  subType?: SchoolBoard;
   accreditationLevel: "Diamond" | "Platinum" | "Gold" | "Silver" | "Emerging";
   focusAreas: string[];
   nationalRanking?: number; // Added for tier classification
@@ -563,7 +561,6 @@ const rankingData = processRankingData();
 
 const Rankings = () => {
   const navigate = useNavigate();
-  const [institutionTypeFilter, setInstitutionTypeFilter] = useState<string>("all");
   const [cityFilter, setCityFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -575,7 +572,6 @@ const Rankings = () => {
 
   const filteredInstitutions = useMemo(() => {
     const filtered = rankingData
-      .filter((institution) => (institutionTypeFilter === "all" ? true : institution.institutionType === institutionTypeFilter))
       .filter((institution) => (cityFilter === "all" ? true : institution.city === cityFilter))
       .filter((institution) =>
         institution.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -596,20 +592,18 @@ const Rankings = () => {
     
     // Limit to top 5 schools on this page
     return sorted.slice(0, 5);
-  }, [institutionTypeFilter, cityFilter, searchTerm]);
+  }, [cityFilter, searchTerm]);
 
   // Export to CSV function
   const exportToCSV = () => {
-    const headers = ["Rank", "School Name", "City", "Country", "Type", "Board", "Accreditation Level", "Focus Areas"];
+    const headers = ["School Name", "City", "Country", "Board", "Accreditation Level", "Focus Areas"];
     const csvRows = [headers.join(",")];
     
     filteredInstitutions.forEach((institution) => {
       const row = [
-        institution.ranking,
         `"${institution.name}"`,
         institution.city,
         institution.country,
-        institution.institutionType,
         institution.subType || "",
         institution.accreditationLevel,
         `"${institution.focusAreas.join("; ")}"`,
@@ -622,18 +616,26 @@ const Rankings = () => {
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.setAttribute("href", url);
-    link.setAttribute("download", `school-rankings-${new Date().toISOString().split("T")[0]}.csv`);
+    link.setAttribute("download", `gtap-accredited-schools-${new Date().toISOString().split("T")[0]}.csv`);
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
+  const accreditationLevels = [
+    { label: "Diamond", range: "475–500", description: "Highest recognition for exceptional academic excellence and global standards" },
+    { label: "Platinum", range: "450–474", description: "Outstanding performance with strong innovation and learner outcomes" },
+    { label: "Gold", range: "400–449", description: "Strong quality benchmarks across teaching, curriculum, and governance" },
+    { label: "Silver", range: "350–399", description: "Solid foundation with clear pathways for continuous improvement" },
+    { label: "Emerging", range: "Below 350", description: "Growing institutions building toward higher accreditation standards" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <SeoHead
-        title="GTAP School Rankings India | Leading Accredited Institutions"
-        description="Explore top GTAP-accredited schools and institutions across India. Diamond, Platinum, Gold, Silver, and Emerging tiers—schools, colleges, universities, and EdTech."
+        title="GTAP Accredited Schools India | Diamond, Platinum & More"
+        description="Explore GTAP-accredited schools across India. Understand Diamond, Platinum, Gold, Silver, and Emerging accreditation levels and find accredited schools near you."
         path="/rankings"
       />
       <Navigation />
@@ -642,15 +644,36 @@ const Rankings = () => {
           <div className="max-w-5xl mx-auto space-y-14">
             <header className="text-center space-y-4">
               <Badge className="px-5 py-2 text-[0.65rem] uppercase tracking-[0.35em] bg-gold/10 text-gold border border-gold/40">
-                GTAP Rankings
+                GTAP Accreditation
               </Badge>
               <h1 className="text-4xl md:text-5xl font-serif font-bold">
-                Leading GTAP Accredited Institutions <span className="text-gradient-gold">Across India</span>
+                Leading GTAP Accredited Schools <span className="text-gradient-gold">Across India</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Discover top-performing schools across India. View the top 5 ranked institutions below, or click "View Full List" to see all {rankingData.length} schools.
+                Discover accredited schools across India. Browse featured schools below, or view the full directory of {rankingData.length} schools.
               </p>
             </header>
+
+            <Card className="p-6 md:p-8 shadow-premium border-border/50 bg-card/60 backdrop-blur space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Award className="h-5 w-5 text-gold" />
+                  What Do Accreditation Levels Mean?
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  GTAP awards schools one of five levels based on their overall quality score out of 500.
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {accreditationLevels.map((level) => (
+                  <div key={level.label} className="rounded-xl border border-border/40 bg-background/70 p-5">
+                    <p className="text-lg font-semibold text-gradient-gold">{level.label}</p>
+                    <p className="text-sm font-medium text-foreground mt-1">Score: {level.range}</p>
+                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{level.description}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
 
             <Card className="p-6 md:p-8 shadow-premium border-border/50 bg-card/60 backdrop-blur space-y-6">
               <div className="flex items-center justify-between mb-4">
@@ -666,23 +689,7 @@ const Rankings = () => {
                   </Button>
                 )}
               </div>
-              <div className="grid gap-4 md:grid-cols-3">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Filter by Type</label>
-                  <Select value={institutionTypeFilter} onValueChange={setInstitutionTypeFilter}>
-                    <SelectTrigger className="bg-background/60">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="School">Schools</SelectItem>
-                      <SelectItem value="College">Colleges</SelectItem>
-                      <SelectItem value="University">Universities</SelectItem>
-                      <SelectItem value="Coaching Institute">Coaching Institutes</SelectItem>
-                      <SelectItem value="EdTech Platform">EdTech Platforms</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground">Filter by City</label>
                   <Select value={cityFilter} onValueChange={setCityFilter}>
@@ -701,7 +708,7 @@ const Rankings = () => {
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="search" className="text-sm font-medium text-muted-foreground">
-                    Search Institution or City
+                    Search School or City
                   </label>
                   <Input
                     id="search"
@@ -718,7 +725,7 @@ const Rankings = () => {
               {filteredInstitutions.length === 0 ? (
                 <Card className="p-10 text-center border-dashed border-border/60 bg-card/50 backdrop-blur">
                   <p className="text-muted-foreground">
-                    No institutions found for the selected filters. Try adjusting the type, city, or search term.
+                    No schools found for the selected filters. Try adjusting the city or search term.
                   </p>
                 </Card>
               ) : (
@@ -730,20 +737,11 @@ const Rankings = () => {
                   >
                     <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                       <div className="space-y-3">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold">
-                            <Award className="h-4 w-4" />
-                            Rank #{institution.nationalRanking || institution.ranking}
-                          </div>
-                          <Badge variant="outline" className="border-blue-500/40 text-blue-600 text-xs">
-                            {institution.institutionType}
+                        {institution.subType && (
+                          <Badge variant="outline" className="border-purple-500/40 text-purple-600 text-xs">
+                            {institution.subType}
                           </Badge>
-                          {institution.subType && (
-                            <Badge variant="outline" className="border-purple-500/40 text-purple-600 text-xs">
-                              {institution.subType}
-                            </Badge>
-                          )}
-                        </div>
+                        )}
                         <h2 className="text-2xl font-serif font-semibold">{institution.name}</h2>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <MapPin className="h-4 w-4" />
@@ -767,7 +765,7 @@ const Rankings = () => {
                   {filteredInstitutions.length === 5 && (
                     <Card className="p-6 text-center border-dashed border-border/60 bg-card/50 backdrop-blur">
                       <p className="text-muted-foreground mb-4">
-                        Showing top 5 schools. View all {rankingData.length} schools in the full rankings.
+                        Showing featured schools. View all {rankingData.length} schools in the full directory.
                       </p>
                     </Card>
                   )}

@@ -130,7 +130,7 @@ const Certificates = () => {
               <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="institutionType">Institution Type</Label>
+                    <Label htmlFor="institutionType">School Type</Label>
                     <Select
                       value={institutionType}
                       onValueChange={(value) => {
@@ -143,9 +143,7 @@ const Certificates = () => {
                         <SelectValue placeholder="Choose type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="institution">Institution</SelectItem>
                         <SelectItem value="school">School</SelectItem>
-                        <SelectItem value="college">College</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

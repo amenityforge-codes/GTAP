@@ -7,7 +7,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Certificates from "./pages/Certificates";
-import CurriculumFramework from "./pages/CurriculumFramework";
 import Rankings from "./pages/Rankings";
 import FullRankings from "./pages/FullRankings";
 
@@ -25,7 +24,6 @@ const App = () => (
             <Route path="/certificates" element={<Certificates />} />
             <Route path="/rankings" element={<Rankings />} />
             <Route path="/full-rankings" element={<FullRankings />} />
-            <Route path="/international-curriculum" element={<CurriculumFramework />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

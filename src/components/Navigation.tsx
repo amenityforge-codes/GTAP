@@ -78,9 +78,9 @@ const Navigation = () => {
           <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => handleNavigate("/rankings")}
-              className={`text-sm font-medium transition-colors ${location.pathname === "/rankings" ? "text-secondary" : "hover:text-secondary"}`}
+              className={`text-sm font-medium transition-colors ${location.pathname === "/rankings" || location.pathname === "/full-rankings" ? "text-secondary" : "hover:text-secondary"}`}
             >
-              Rankings
+              Excellence Directory
             </button>
             <button onClick={() => handleSectionClick('about')} className="text-sm font-medium hover:text-secondary transition-colors">
               About
@@ -99,12 +99,6 @@ const Navigation = () => {
               className={`text-sm font-medium transition-colors ${location.pathname === "/certificates" ? "text-secondary" : "hover:text-secondary"}`}
             >
               Certificates
-            </button>
-            <button
-              onClick={() => handleNavigate("/international-curriculum")}
-              className={`text-sm font-medium transition-colors ${location.pathname === "/international-curriculum" ? "text-secondary" : "hover:text-secondary"}`}
-            >
-              International Curriculum
             </button>
             <Button onClick={() => handleSectionClick('contact')} className="gradient-gold text-primary hover:opacity-90 transition-opacity">
               Contact Us
@@ -137,7 +131,7 @@ const Navigation = () => {
               onClick={() => handleNavigate("/rankings")}
               className="block w-full text-left py-2 text-sm font-medium hover:text-secondary transition-colors"
             >
-              Rankings
+              Excellence Directory
             </button>
             <button onClick={() => handleSectionClick('about')} className="block w-full text-left py-2 text-sm font-medium hover:text-secondary transition-colors">
               About
@@ -156,12 +150,6 @@ const Navigation = () => {
               className="block w-full text-left py-2 text-sm font-medium hover:text-secondary transition-colors"
             >
               Certificates
-            </button>
-            <button
-              onClick={() => handleNavigate("/international-curriculum")}
-              className="block w-full text-left py-2 text-sm font-medium hover:text-secondary transition-colors"
-            >
-              International Curriculum
             </button>
             <Button onClick={() => handleSectionClick('contact')} className="w-full gradient-gold text-primary hover:opacity-90 transition-opacity">
               Contact Us
